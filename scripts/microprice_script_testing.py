@@ -75,7 +75,6 @@ class MicropricePMM(ScriptStrategyBase):
         # Fetch date and time in seconds
         date = datetime.datetime.now().strftime("%Y-%m-%d")
         time = self.current_timestamp
-
         data = [[date, time, bid, bid_volume, ask, ask_volume]]
         # self.current_dataframe = self.current_dataframe.append(pd.DataFrame(data, columns=self.columns), ignore_index=True)
         self.current_dataframe = pd.concat([self.current_dataframe, pd.DataFrame(data, columns=self.columns)], ignore_index=True)
@@ -97,7 +96,6 @@ class MicropricePMM(ScriptStrategyBase):
         # data = data.append(self.current_dataframe.iloc[:-self.range_of_imbalance], ignore_index=True)
         # Switched to pd.concat
         data = pd.concat([data, self.current_dataframe.iloc[:-self.range_of_imbalance]], ignore_index=True)
-
         data.to_csv(csv_path)
         self.current_dataframe = self.current_dataframe.iloc[-self.range_of_imbalance:]
         return
